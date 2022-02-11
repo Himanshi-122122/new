@@ -1,5 +1,5 @@
 # UBC CPSC 210 Term Project
-## Project title: ...
+## Project title: Tracking food inventory in Refrigerator & Freezer
 
 "Tracking food inventory in Refrigerator & Freezer" is a tool to help keep track of the shelf life of all foods stored 
 in the refrigerator and freezer and prioritize which foods should be used before they are no longer safe to eat.
@@ -16,13 +16,13 @@ motivation for me to come up with an idea and build this software to be able to 
 food in the refrigerator efficiently and scientifically.
 
 ### Main functions
-1. Adding and storing the data **Type**, **Name**, **Date**, **Quantity** of food in the refrigerator/freezer.
+1. Adding and storing the data **Type**, **Name**, **Quantity** of food in the refrigerator/freezer.
 2. Display a time chart of using time remaining of all foods in the refrigerator/freezer.
 3. Set the priority of what food need to be used first.
 
 ### User stories
 - User can choose _type of food_
-- User can add _name_, _date_ (of food is added to the refrigerator/freezer), _quantity_ of food.
+- User can add _name_, _quantity_ of food.
 - User can _update_ the quantity of food.
 - User can _delete_ food.
 - User can _view_ the time chart of using time remaining of all foods.
