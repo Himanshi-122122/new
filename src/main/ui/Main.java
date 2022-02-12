@@ -4,6 +4,6 @@ import model.UserFoods;
 
 public class Main {
     public static void main(String[] args) {
-        //stub
+        new FoodInventoryApp();
     }
 }

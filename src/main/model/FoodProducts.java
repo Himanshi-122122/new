@@ -15,14 +15,14 @@ public class FoodProducts {
 
     // construct food products with main category, given name and shelf-life time by days
     public FoodProducts(String mainCategory, String product, int shelfLife) {
-        this.mainFoodCategory = mainCategory;
-        this.foodProduct = product;
-        this.recommendedShelfLife = shelfLife;
+        mainFoodCategory = mainCategory;
+        foodProduct = product;
+        recommendedShelfLife = shelfLife;
     }
 
     //MODIFIERS: this
     //EFFECTS: add different kinds of food products in the main list
-    public ArrayList mainFoodsList() {
+    public void mainFoodsList() {
         ArrayList<FoodProducts> mainList = new ArrayList<>();
 
         mainList.add(new FoodProducts("Eggs","Fresh, in shell",35));
@@ -38,20 +38,17 @@ public class FoodProducts {
                 "Store-cooked convenience meals",4));
         mainList.add(new FoodProducts("Deli & Packed Products",
                 "Commercial brand vacuum-packed dinners",14));
-
-        return null;
     }
 
 
-
-//    //MODIFIERS: this
-//    //EFFECTS: add main products in mainProductList
-//    public void mainProductList() {
-//        ArrayList<ArrayList> allProducts = new ArrayList<>();
-//
-//        allProducts.add(eggs());
-//        allProducts.add(packedFoods());
-//    }
+    //EFFECTS: setter
+    public void setFoodsList() {
+        //stub
+    }
 
 
+    //EFFECTS: return the list
+    public void getFoodsList() {
+        //stub
+    }
 }
