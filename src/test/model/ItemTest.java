@@ -1,35 +1,21 @@
 package model;
-
 import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ItemTest {
-    private ArrayList<Item> listTest;
     private Item item01;
-    private Item item02;
-    private Item item03;
-    private Item item04;
-    private Item item05;
+
 
     @BeforeEach
     public void setUp() {
-        listTest = new ArrayList<>();
-        item01 = new Item(0001,"item01 name",100,"A",100.0,110.0);
-//        item02 = new Item(0002,"item02 name",200,"B",200.0,220.0);
-//        item03 = new Item(0003,"item03 name",300,"A",300.0,330.0);
-//        item04 = new Item(0004,"item04 name",400,"C",400.0,440.0);
-//        item05 = new Item(0005,"item05 name",500,"D",500.0,550.0);
+        //ArrayList<Item> listTest = new ArrayList<>();
+        item01 = new Item(1,"item01 name",100,"A",100.0,110.0);
+        //listTest.add(item01);
 
-        listTest.add(item01);
-//        listTest.add(item02);
-//        listTest.add(item03);
-//        listTest.add(item04);
-//        listTest.add(item05);
     }
 
     @Test
@@ -54,7 +40,7 @@ public class ItemTest {
 
     @Test
     public void testChangeName() {
-        assertEquals("newname", item01.changeItemName("newname"));
+        assertEquals("new name", item01.changeItemName("new name"));
     }
 
     @Test
@@ -63,7 +49,7 @@ public class ItemTest {
     }
 
     @Test
-    public void testChangePostion() {
+    public void testChangePosition() {
         assertEquals("B", item01.changeItemPosition("B"));
     }
 
