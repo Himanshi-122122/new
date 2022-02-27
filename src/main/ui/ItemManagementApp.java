@@ -131,8 +131,9 @@ public class ItemManagementApp {
         for (Item item : userItemList) {
             if (item.getItemCount() <= userCount) {
                 indexPrintList++;
-                System.out.println(indexPrintList + "# -> " + "ID: " + item.getItemID() + " | " + "Name: " + item.getItemName()
-                        + " | " + "Count: " + item.getItemCount() + " | " + "Position: " + item.getItemPosition());
+                System.out.println(indexPrintList + "# -> " + "ID: " + item.getItemID() + " | " + "Name: "
+                        + item.getItemName() + " | " + "Count: " + item.getItemCount() + " | " + "Position: "
+                        + item.getItemPosition());
             }
         }
         System.out.println("-- End of the item list with the count under: " + userCount);
@@ -148,41 +149,65 @@ public class ItemManagementApp {
 
         if (userChange.equals("CI")) {
             int userChangeOption = userChooseItemToChange();
-            System.out.println("Input a new ID:");
-            int userNewID = input.nextInt();
-            Item getItemFromList = userItemList.get(userChangeOption - 1);
-            getItemFromList.changeItemID(userNewID);
+            chooseChangeID(userChangeOption);
         } else if (userChange.equals("CN")) {
             int userChangeOption = userChooseItemToChange();
-            System.out.println("Input a new name:");
-            String userNewName = input.next();
-            Item getItemFromList = userItemList.get(userChangeOption - 1);
-            getItemFromList.changeItemName(userNewName);
+            chooseChangeName(userChangeOption);
         } else if (userChange.equals("CC")) {
             int userChangeOption = userChooseItemToChange();
-            System.out.println("Input a new Count:");
-            int userNewCount = input.nextInt();
-            Item getItemFromList = userItemList.get(userChangeOption - 1);
-            getItemFromList.changeItemCount(userNewCount);
+            chooseChangeCount(userChangeOption);
         } else if (userChange.equals("CP")) {
             int userChangeOption = userChooseItemToChange();
-            System.out.println("Input a new position:");
-            String userNewPosition = input.next();
-            Item getItemFromList = userItemList.get(userChangeOption - 1);
-            getItemFromList.changeItemPosition(userNewPosition);
+            chooseChangePosition(userChangeOption);
         } else if (userChange.equals("CIP")) {
             int userChangeOption = userChooseItemToChange();
-            System.out.println("Input a new inPrice:");
-            int userNewInPrice = input.nextInt();
-            Item getItemFromList = userItemList.get(userChangeOption - 1);
-            getItemFromList.changeItemInPrice(userNewInPrice);
+            chooseChangeInPrice(userChangeOption);
         } else if (userChange.equals("COP")) {
             int userChangeOption = userChooseItemToChange();
-            System.out.println("Input a new outPrice:");
-            int userNewOutPrice = input.nextInt();
-            Item getItemFromList = userItemList.get(userChangeOption - 1);
-            getItemFromList.changeItemOutPrice(userNewOutPrice);
+            chooseChangeOutPrice(userChangeOption);
         }
+    }
+
+    private void chooseChangeOutPrice(int userChangeOption) {
+        System.out.println("Input a new outPrice:");
+        int userNewOutPrice = input.nextInt();
+        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        getItemFromList.changeItemOutPrice(userNewOutPrice);
+    }
+
+    private void chooseChangeInPrice(int userChangeOption) {
+        System.out.println("Input a new inPrice:");
+        int userNewInPrice = input.nextInt();
+        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        getItemFromList.changeItemInPrice(userNewInPrice);
+    }
+
+    private void chooseChangePosition(int userChangeOption) {
+        System.out.println("Input a new position:");
+        String userNewPosition = input.next();
+        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        getItemFromList.changeItemPosition(userNewPosition);
+    }
+
+    private void chooseChangeCount(int userChangeOption) {
+        System.out.println("Input a new Count:");
+        int userNewCount = input.nextInt();
+        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        getItemFromList.changeItemCount(userNewCount);
+    }
+
+    private void chooseChangeName(int userChangeOption) {
+        System.out.println("Input a new name:");
+        String userNewName = input.next();
+        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        getItemFromList.changeItemName(userNewName);
+    }
+
+    private void chooseChangeID(int userChangeOption) {
+        System.out.println("Input a new ID:");
+        int userNewID = input.nextInt();
+        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        getItemFromList.changeItemID(userNewID);
     }
 
     //helper method
