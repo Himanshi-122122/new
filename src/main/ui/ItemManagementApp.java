@@ -52,7 +52,6 @@ public class ItemManagementApp {
         }
     }
 
-    //MODIFIERS: this
     //EFFECTS: initialize new list
     private void init() {
         userItemList = new ArrayList<>();
@@ -63,17 +62,19 @@ public class ItemManagementApp {
 
     //EFFECTS: displays menu of options to user
     private void displayMenu() {
-        System.out.println("--- Supermarket Item Management ---");
+        System.out.println("-------------- SUPERMARKET STOCK MANAGEMENT ----------------");
         System.out.println("Select from actions below:");
         System.out.println("Input 'A' to Add item");
         System.out.println("Input 'D' to Delete item");
         System.out.println("Input 'C' to Change item information");
-        System.out.println("Input 'S' to Show all item in the supermarket");
-        System.out.println("Input 'B' to Show all item that was lower a specific count");
+        System.out.println("Input 'S' to Show all items in the supermarket");
+        System.out.println("Input 'B' to Show all items that was lower than a specific count");
         System.out.println("Input 'Q' to Quit");
+        System.out.println("-------------------------------------------------------------");
     }
 
-    //EFFECTS:
+    //MODIFIERS: this
+    //EFFECTS: add item to list
     private void userAddItem() {
         System.out.println("Item's ID:");
         int valueID = input.nextInt();
@@ -93,7 +94,7 @@ public class ItemManagementApp {
 
 
     //MODIFIERS: this
-    //EFFECTS:
+    //EFFECTS: delete specific item in the list
     private void userDeleteItem() {
 
         int index = 1;
@@ -109,7 +110,7 @@ public class ItemManagementApp {
     }
 
 
-    //EFFECTS:
+    //EFFECTS: show all item list in specific structured string
     private void showItemList() {
         int index = 1;
         for (Item item : userItemList) {
@@ -120,7 +121,8 @@ public class ItemManagementApp {
         }
     }
 
-    //EFFECTS:
+
+    //EFFECTS: show all items which has count smaller than user's input count
     private void showItemListUnderCount() {
         System.out.println("Input the count:");
         int userCount = input.nextInt();
@@ -136,7 +138,8 @@ public class ItemManagementApp {
         System.out.println("-- End of the item list with the count under: " + userCount);
     }
 
-    //EFFECTS:
+    //MODIFIERS: this
+    //EFFECTS: set new ID, name, count, position, inprice, outprice for item
     private void changeItemParameters() {
         changingMenu();
         String userChange = input.next();
@@ -144,37 +147,37 @@ public class ItemManagementApp {
 
 
         if (userChange.equals("CI")) {
-            int userChangeOption = getUserChangeOption();
+            int userChangeOption = userChooseItemToChange();
             System.out.println("Input a new ID:");
             int userNewID = input.nextInt();
             Item getItemFromList = userItemList.get(userChangeOption - 1);
             getItemFromList.changeItemID(userNewID);
         } else if (userChange.equals("CN")) {
-            int userChangeOption = getUserChangeOption();
+            int userChangeOption = userChooseItemToChange();
             System.out.println("Input a new name:");
             String userNewName = input.next();
             Item getItemFromList = userItemList.get(userChangeOption - 1);
             getItemFromList.changeItemName(userNewName);
         } else if (userChange.equals("CC")) {
-            int userChangeOption = getUserChangeOption();
+            int userChangeOption = userChooseItemToChange();
             System.out.println("Input a new Count:");
             int userNewCount = input.nextInt();
             Item getItemFromList = userItemList.get(userChangeOption - 1);
             getItemFromList.changeItemCount(userNewCount);
         } else if (userChange.equals("CP")) {
-            int userChangeOption = getUserChangeOption();
+            int userChangeOption = userChooseItemToChange();
             System.out.println("Input a new position:");
             String userNewPosition = input.next();
             Item getItemFromList = userItemList.get(userChangeOption - 1);
             getItemFromList.changeItemPosition(userNewPosition);
         } else if (userChange.equals("CIP")) {
-            int userChangeOption = getUserChangeOption();
+            int userChangeOption = userChooseItemToChange();
             System.out.println("Input a new inPrice:");
             int userNewInPrice = input.nextInt();
             Item getItemFromList = userItemList.get(userChangeOption - 1);
             getItemFromList.changeItemInPrice(userNewInPrice);
         } else if (userChange.equals("COP")) {
-            int userChangeOption = getUserChangeOption();
+            int userChangeOption = userChooseItemToChange();
             System.out.println("Input a new outPrice:");
             int userNewOutPrice = input.nextInt();
             Item getItemFromList = userItemList.get(userChangeOption - 1);
@@ -182,14 +185,15 @@ public class ItemManagementApp {
         }
     }
 
-    private int getUserChangeOption() {
+    //helper method
+    private int userChooseItemToChange() {
         showItemList();
         System.out.println("Input the item order number need to change:");
         int userChangeOption = input.nextInt();
         return userChangeOption;
     }
 
-
+    //menu for choosing what item's information need to change
     private void changingMenu() {
         System.out.println("Input 'CI' to change ID");
         System.out.println("Input 'CN' to change Name");

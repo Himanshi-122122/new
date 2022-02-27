@@ -1,5 +1,4 @@
 package model;
-import com.sun.xml.internal.ws.api.model.wsdl.WSDLOutput;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,10 +11,7 @@ public class ItemTest {
 
     @BeforeEach
     public void setUp() {
-        //ArrayList<Item> listTest = new ArrayList<>();
         item01 = new Item(1,"item01 name",100,"A",100.0,110.0);
-        //listTest.add(item01);
-
     }
 
     @Test

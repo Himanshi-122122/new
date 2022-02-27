@@ -22,6 +22,7 @@ public class Item {
         this.itemOutPrice = outPrice;
     }
 
+    //MODIFIES: this
     //EFFECTS: after tax
     public double priceAfterBCTax() {
         return (itemOutPrice + itemOutPrice * 0.12);
@@ -29,36 +30,42 @@ public class Item {
 
     //method of change -----------------------------------------------------
 
+    //MODIFIES: this
     //EFFECTS: change item's ID
     public int changeItemID(int newID) {
         this.itemID = newID;
         return itemID;
     }
 
+    //MODIFIES: this
     //EFFECTS: change item's name
     public String changeItemName(String newName) {
         this.itemName = newName;
         return itemName;
     }
 
+    //MODIFIES: this
     //EFFECTS: change item's count
     public int changeItemCount(int newCount) {
         this.itemCount = newCount;
         return itemCount;
     }
 
+    //MODIFIES: this
     //EFFECTS: change item's position
     public String changeItemPosition(String newPosition) {
         this.itemPosition = newPosition;
         return itemPosition;
     }
 
+    //MODIFIES: this
     //EFFECTS: change item's in price
     public double changeItemInPrice(double newPrice) {
         this.itemInPrice = newPrice;
         return itemInPrice;
     }
 
+    //MODIFIES: this
     //EFFECTS: change item's out price
     public double changeItemOutPrice(double newPrice) {
         this.itemOutPrice = newPrice;
