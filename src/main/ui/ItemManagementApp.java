@@ -39,16 +39,22 @@ public class ItemManagementApp {
 
     //EFFECTS: process user command
     private void chooseCommand(String command) {
-        if (command.equals("A")) {
-            userAddItem();
-        } else if (command.equals("D")) {
-            userDeleteItem();
-        } else if (command.equals("S")) {
-            showItemList();
-        } else if (command.equals("B")) {
-            showItemListUnderCount();
-        } else if (command.equals("C")) {
-            changeItemParameters();
+        switch (command) {
+            case "A":
+                userAddItem();
+                break;
+            case "D":
+                userDeleteItem();
+                break;
+            case "S":
+                showItemList();
+                break;
+            case "B":
+                showItemListUnderCount();
+                break;
+            case "C":
+                changeItemParameters();
+                break;
         }
     }
 
