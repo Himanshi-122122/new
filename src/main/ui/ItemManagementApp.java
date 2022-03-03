@@ -1,13 +1,14 @@
 package ui;
 
 import model.Item;
+import model.ItemList;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ItemManagementApp {
     private Scanner input;
-    ArrayList<Item> userItemList;
+    //ArrayList<Item> userItemList;
+    ItemList itemsInStore;
     Item item;
 
 
@@ -60,7 +61,8 @@ public class ItemManagementApp {
 
     //EFFECTS: initialize new list
     private void init() {
-        userItemList = new ArrayList<>();
+        //userItemList = new ArrayList<>();
+        itemsInStore = new ItemList();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -95,7 +97,8 @@ public class ItemManagementApp {
         System.out.println("Item's out price:");
         Double valueOutPrice = input.nextDouble();
         item = new Item(valueID, valueName, valueCount, valuePosition, valueInPrice, valueOutPrice);
-        userItemList.add(item);
+        //userItemList.add(item);
+        itemsInStore.addItemToList(item);
     }
 
 
@@ -104,7 +107,7 @@ public class ItemManagementApp {
     private void userDeleteItem() {
 
         int index = 1;
-        for (Item item : userItemList) {
+        for (Item item : itemsInStore.getList()) {
             System.out.println(index + "# -> " + "ID: " + item.getItemID() + " | " + "Name: " + item.getItemName()
                     + " | " + "Count: " + item.getItemCount() + " | " + "Position: " + item.getItemPosition());
             index++;
@@ -112,14 +115,14 @@ public class ItemManagementApp {
 
         System.out.println("Input the order # of item to delete:");
         int deleteItemOrder = input.nextInt();
-        userItemList.remove((deleteItemOrder - 1));
+        itemsInStore.deleteItemInList(deleteItemOrder - 1);
     }
 
 
     //EFFECTS: show all item list in specific structured string
     private void showItemList() {
         int index = 1;
-        for (Item item : userItemList) {
+        for (Item item : itemsInStore.getList()) {
             System.out.println(index + "# -> " + "ID: " + item.getItemID() + " | " + "Name: " + item.getItemName()
                     + " | " + "Count: " + item.getItemCount() + " | " + "Position: " + item.getItemPosition() + " | "
                     + "Price included BC tax: " + item.priceAfterBCTax() + "$");
@@ -132,15 +135,12 @@ public class ItemManagementApp {
     private void showItemListUnderCount() {
         System.out.println("Input the count:");
         int userCount = input.nextInt();
-
         int indexPrintList = 0;
-        for (Item item : userItemList) {
-            if (item.getItemCount() <= userCount) {
-                indexPrintList++;
-                System.out.println(indexPrintList + "# -> " + "ID: " + item.getItemID() + " | " + "Name: "
-                        + item.getItemName() + " | " + "Count: " + item.getItemCount() + " | " + "Position: "
-                        + item.getItemPosition());
-            }
+        for (Item item : itemsInStore.listItemUnderCount(userCount)) {
+            indexPrintList++;
+            System.out.println(indexPrintList + "# -> " + "ID: " + item.getItemID() + " | " + "Name: "
+                    + item.getItemName() + " | " + "Count: " + item.getItemCount() + " | " + "Position: "
+                    + item.getItemPosition());
         }
         System.out.println("-- End of the item list with the count under: " + userCount);
     }
@@ -177,42 +177,42 @@ public class ItemManagementApp {
     private void chooseChangeOutPrice(int userChangeOption) {
         System.out.println("Input a new outPrice:");
         int userNewOutPrice = input.nextInt();
-        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        Item getItemFromList = itemsInStore.getItemFromList(userChangeOption - 1);
         getItemFromList.changeItemOutPrice(userNewOutPrice);
     }
 
     private void chooseChangeInPrice(int userChangeOption) {
         System.out.println("Input a new inPrice:");
         int userNewInPrice = input.nextInt();
-        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        Item getItemFromList = itemsInStore.getItemFromList(userChangeOption - 1);
         getItemFromList.changeItemInPrice(userNewInPrice);
     }
 
     private void chooseChangePosition(int userChangeOption) {
         System.out.println("Input a new position:");
         String userNewPosition = input.next();
-        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        Item getItemFromList = itemsInStore.getItemFromList(userChangeOption - 1);
         getItemFromList.changeItemPosition(userNewPosition);
     }
 
     private void chooseChangeCount(int userChangeOption) {
         System.out.println("Input a new Count:");
         int userNewCount = input.nextInt();
-        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        Item getItemFromList = itemsInStore.getItemFromList(userChangeOption - 1);
         getItemFromList.changeItemCount(userNewCount);
     }
 
     private void chooseChangeName(int userChangeOption) {
         System.out.println("Input a new name:");
         String userNewName = input.next();
-        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        Item getItemFromList = itemsInStore.getItemFromList(userChangeOption - 1);
         getItemFromList.changeItemName(userNewName);
     }
 
     private void chooseChangeID(int userChangeOption) {
         System.out.println("Input a new ID:");
         int userNewID = input.nextInt();
-        Item getItemFromList = userItemList.get(userChangeOption - 1);
+        Item getItemFromList = itemsInStore.getItemFromList(userChangeOption - 1);
         getItemFromList.changeItemID(userNewID);
     }
 
