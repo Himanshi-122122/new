@@ -1,0 +1,29 @@
+{
+    "allItems": [
+        {
+            "outprice": 35,
+            "inprice": 34,
+            "name": "name 1",
+            "count": 13,
+            "id": 11,
+            "position": "A"
+        },
+        {
+            "outprice": 565,
+            "inprice": 56,
+            "name": "name 6",
+            "count": 56,
+            "id": 13,
+            "position": "35"
+        },
+        {
+            "outprice": 46,
+            "inprice": 45,
+            "name": "name 4",
+            "count": 56,
+            "id": 23,
+            "position": "F"
+        }
+    ],
+    "listName": "My Store"
+}

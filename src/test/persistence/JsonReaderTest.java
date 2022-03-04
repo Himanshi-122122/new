@@ -9,7 +9,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public class JsonReaderTest {
+public class JsonReaderTest extends JsonTest {
 
     //read invalid source address.
     @Test
@@ -35,10 +35,10 @@ public class JsonReaderTest {
 
             JsonReader readTest = new JsonReader("./data/emptyWriterListTest.json");
             ItemList test = readTest.read();
-            assertEquals(0, test.getSize());
             assertEquals("My Store", test.getName());
+            assertEquals(0, test.getSize());
         } catch (IOException e) {
-            fail();
+            fail("Exception should not have been thrown");
         }
     }
 
@@ -57,7 +57,10 @@ public class JsonReaderTest {
 
             JsonReader readTest = new JsonReader("./data/readTest.json");
             ItemList readReturnItemListTest = readTest.read();
+            assertEquals("My Store",readReturnItemListTest.getName());
             assertEquals(3, readReturnItemListTest.getSize());
+            jsonTest(1, "name 1", 1, "A", readReturnItemListTest.getItemFromList(0));
+            jsonTest(2, "name 2", 2, "B", readReturnItemListTest.getItemFromList(1));
         } catch (IOException e) {
             fail();
         }
