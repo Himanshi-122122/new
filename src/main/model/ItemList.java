@@ -1,13 +1,19 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
-public class ItemList {
+public class ItemList implements Writable {
     private ArrayList<Item> itemArrayList;
     private ArrayList<Item> itemUnderCountList;
+    private String listName;
 
     //construct constructor
-    public ItemList() {
+    public ItemList(String name) {
+        this.listName = name;
         itemArrayList = new ArrayList<>();
     }
 
@@ -50,4 +56,22 @@ public class ItemList {
         return itemArrayList.size();
     }
 
+
+    //EFFECTS: construct ItemList JSON
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("listName", listName);
+        json.put("allItems", itemsToJson());
+        return json;
+    }
+    
+    //EFFECTS: return all items in this ItemList to a JSON array
+    private JSONArray itemsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Item i : itemArrayList) {
+            jsonArray.put(i.toJson());
+        }
+        return jsonArray;
+    }
 }

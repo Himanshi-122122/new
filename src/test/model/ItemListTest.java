@@ -16,7 +16,7 @@ public class ItemListTest {
 
     @BeforeEach
     public void setUp() {
-        testList = new ItemList();
+        testList = new ItemList("My Store");
         item01 = new Item(1, "item01 name", 100, "A", 100.0, 110.0);
         item02 = new Item(2, "item02 name", 200, "B", 200.0, 220.0);
         item03 = new Item(3, "item03 name", 300, "C", 300.0, 330.0);
@@ -41,6 +41,23 @@ public class ItemListTest {
     public void listItemUnderCountTest(){
         ArrayList<Item> resultList = testList.listItemUnderCount(250);
         assertEquals(2, resultList.size());
+    }
+
+    @Test
+    public void getListTest () {
+        ArrayList<Item> resultList = testList.getList();
+        assertEquals(3, resultList.size());
+    }
+
+    @Test
+    public void getItemFromListTest() {
+        Item itemTest = testList.getItemFromList(0);
+        assertEquals(1, itemTest.getItemID());
+    }
+
+    @Test
+    public void getSizeTest() {
+        assertEquals(3, testList.getSize());
     }
 
 }

@@ -1,8 +1,12 @@
 package model;
 
 
+import netscape.javascript.JSObject;
+import org.json.JSONObject;
+import persistence.Writable;
+
 // represent the item has parameters: ID, Name, Count, Position, inPrice, outPrice
-public class Item {
+public class Item implements Writable {
 
     private int itemID;
     private String itemName;
@@ -97,6 +101,20 @@ public class Item {
     public double getItemOutPrice() {
         return itemOutPrice;
     }
-    // -----------------------------------
+
+    // ------------------------------------------
+
+    //EFFECTS: construct Item JSON
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("id", itemID);
+        json.put("name", itemName);
+        json.put("count", itemCount);
+        json.put("position", itemPosition);
+        json.put("inprice", itemInPrice);
+        json.put("outprice", itemOutPrice);
+        return json;
+    }
 
 }

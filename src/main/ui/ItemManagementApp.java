@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class ItemManagementApp {
     private Scanner input;
-    //ArrayList<Item> userItemList;
     ItemList itemsInStore;
     Item item;
 
@@ -62,7 +61,7 @@ public class ItemManagementApp {
     //EFFECTS: initialize new list
     private void init() {
         //userItemList = new ArrayList<>();
-        itemsInStore = new ItemList();
+        itemsInStore = new ItemList("My Store");
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
