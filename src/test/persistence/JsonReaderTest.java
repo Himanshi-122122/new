@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public class JsonReaderTest {
 
-    //read invalid source address
+    //read invalid source address.
     @Test
     public void invalidAddressTest() {
         JsonReader readTest = new JsonReader("./data/invalidReaderListTest.json");
