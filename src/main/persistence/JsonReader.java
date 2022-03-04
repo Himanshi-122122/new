@@ -24,7 +24,8 @@ public class JsonReader {
     //throws IOException if an error reading data from file
     //todo: review again
     public ItemList read() throws IOException {
-        String jsonData = readFile(sourceFileName); // call readFile() to read source file, return appended string from source file
+        String jsonData = readFile(sourceFileName); // call readFile() to read source file, return appended
+        // string from source file
         // jsonData is appended string gotten from source file
         JSONObject jsonObject = new JSONObject(jsonData); // construct new JSONObject from source JSON text string
         return parseItemList(jsonObject); // call parseItemList, parses JSONObject to ItemList
