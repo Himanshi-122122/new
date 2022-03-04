@@ -30,12 +30,12 @@ public class JsonWriterTest extends JsonTest {
     public void emptyListTest() {
         try {
             ItemList listTest = new ItemList("My Store");
-            JsonWriter writerTest = new JsonWriter("./data/emptyListTest.json");
+            JsonWriter writerTest = new JsonWriter("./data/emptyWriterListTest.json");
             writerTest.open();
             writerTest.write(listTest);
             writerTest.close();
 
-            JsonReader readTest = new JsonReader("./data/emptyListTest.json");
+            JsonReader readTest = new JsonReader("./data/emptyWriterListTest.json");
             listTest = readTest.read();
             assertEquals("My Store", listTest.getName());
             assertEquals(0, listTest.getSize());
@@ -53,12 +53,12 @@ public class JsonWriterTest extends JsonTest {
             listTest.addItemToList(new Item(2, "name 2", 2, "B", 2, 2));
             listTest.addItemToList(new Item(3, "name 3", 3, "C", 3, 3));
 
-            JsonWriter writerTest = new JsonWriter("./data/generalListTest.json");
+            JsonWriter writerTest = new JsonWriter("./data/generalWriterListTest.json");
             writerTest.open();
             writerTest.write(listTest);
             writerTest.close();
 
-            JsonReader readTest = new JsonReader("./data/generalListTest.json");
+            JsonReader readTest = new JsonReader("./data/generalWriterListTest.json");
             listTest = readTest.read();
             assertEquals("My Store", listTest.getName());
             jsonTest(1, "name 1", 1, "A", listTest.getItemFromList(0));

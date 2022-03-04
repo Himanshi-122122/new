@@ -25,9 +25,10 @@ public class JsonWriter {
 
     //MODIFIES: this
     //EFFECTS: write JSON representation of ItemList as String to file
+    //todo: ask for indentFactor?
     public void write(ItemList itemList) {
         JSONObject json = itemList.toJson();
-        saveToFile(json.toString());
+        saveToFile(json.toString(4));
     }
 
     //MODIFIES: this

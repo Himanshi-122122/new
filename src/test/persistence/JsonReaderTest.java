@@ -13,7 +13,7 @@ public class JsonReaderTest {
     //read invalid source address
     @Test
     public void invalidAddressTest() {
-        JsonReader readTest = new JsonReader("./data/invalidFile.json");
+        JsonReader readTest = new JsonReader("./data/invalidReaderListTest.json");
         try {
             ItemList test = readTest.read();
             fail();
@@ -22,27 +22,23 @@ public class JsonReaderTest {
         }
     }
 
+    //test empty item list
     @Test
     public void emptyListTest() {
         try {
             ItemList listTest = new ItemList("My Store");
-            JsonWriter writerTest = new JsonWriter("./data/invalidFile.json");
+            JsonWriter writerTest = new JsonWriter("./data/emptyWriterListTest.json");
             writerTest.open();
             writerTest.write(listTest);
             writerTest.close();
 
-            JsonReader readTest = new JsonReader("./data/invalidFile.json");
+            JsonReader readTest = new JsonReader("./data/emptyWriterListTest.json");
             ItemList test = readTest.read();
             assertEquals(0, test.getSize());
             assertEquals("My Store", test.getName());
         } catch (IOException e) {
             fail();
         }
-    }
-
-    @Test
-    public void generalListTest() {
-
     }
 
 
