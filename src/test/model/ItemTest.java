@@ -1,4 +1,5 @@
 package model;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,4 +60,14 @@ public class ItemTest {
         assertEquals(100.0, item01.changeItemOutPrice(100.0));
     }
 
+    @Test
+    public void toJsonTest() {
+        JSONObject testItem1 = item01.toJson();
+        assertEquals(1,testItem1.getInt("id"));
+        assertEquals("item01 name", testItem1.getString("name"));
+        assertEquals(100,testItem1.getInt("count"));
+        assertEquals("A", testItem1.getString("position"));
+        assertEquals(100.0,testItem1.getDouble("inprice"));
+        assertEquals(110.0,testItem1.getDouble("outprice"));
+     }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
@@ -60,4 +62,14 @@ public class ItemListTest {
         assertEquals(3, testList.getSize());
     }
 
+    @Test
+    public void getNameListTest() {
+        assertEquals("My Store", testList.getName());
+    }
+
+    @Test
+    public void toJsonTest() {
+        JSONObject itemListToJsonTest = testList.toJson();
+        assertEquals("My Store", itemListToJsonTest.getString("listName"));
+    }
 }
