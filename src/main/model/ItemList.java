@@ -56,6 +56,11 @@ public class ItemList implements Writable {
         return itemArrayList.size();
     }
 
+    //EFFECTS: get name
+    public String getName() {
+        return listName;
+    }
+
 
     //EFFECTS: construct ItemList JSON
     @Override

@@ -1,24 +1,32 @@
 package ui;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import model.Item;
 import model.ItemList;
+import persistence.JsonReader;
+import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ItemManagementApp {
     private Scanner input;
-    ItemList itemsInStore;
-    Item item;
+    private ItemList itemsInStore;
+    private Item item;
+    private JsonReader jsonReader;
+    private JsonWriter jsonWriter;
+    private static final String jsonStoreAddress = "./data/itemList.json";
 
 
     //EFFECTS: runs the food inventory application
-    public ItemManagementApp() {
+    public ItemManagementApp() throws IOException {
         runApp();
     }
 
     //MODIFIERS: this
     //EFFECTS: process user input
-    private void runApp() {
+    private void runApp() throws IOException {
         boolean appStillRun = true;
         String commandInput = null;
 
@@ -38,7 +46,7 @@ public class ItemManagementApp {
     }
 
     //EFFECTS: process user command
-    private void chooseCommand(String command) {
+    private void chooseCommand(String command) throws IOException {
         switch (command) {
             case "A":
                 userAddItem();
@@ -55,13 +63,20 @@ public class ItemManagementApp {
             case "C":
                 changeItemParameters();
                 break;
+            case "SAVE":
+                saveItemList();
+                break;
+            case "LOAD":
+                loadItemList();
+                break;
         }
     }
 
     //EFFECTS: initialize new list
-    private void init() {
-        //userItemList = new ArrayList<>();
+    private void init() throws FileNotFoundException {
         itemsInStore = new ItemList("My Store");
+        jsonReader = new JsonReader(jsonStoreAddress);
+        jsonWriter = new JsonWriter(jsonStoreAddress);
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -77,7 +92,10 @@ public class ItemManagementApp {
         System.out.println("Input 'S' to Show all items in the supermarket");
         System.out.println("Input 'B' to Show all items that was lower than a specific count");
         System.out.println("Input 'Q' to Quit");
-        System.out.println("-------------------------------------------------------------");
+        System.out.println("-------------- SAVE & LOAD DATA - --------------------------");
+        System.out.println("Input 'SAVE' to Save item list");
+        System.out.println("Input 'LOAD' to LOAD item list");
+
     }
 
     //MODIFIERS: this
@@ -96,7 +114,6 @@ public class ItemManagementApp {
         System.out.println("Item's out price:");
         Double valueOutPrice = input.nextDouble();
         item = new Item(valueID, valueName, valueCount, valuePosition, valueInPrice, valueOutPrice);
-        //userItemList.add(item);
         itemsInStore.addItemToList(item);
     }
 
@@ -232,5 +249,29 @@ public class ItemManagementApp {
         System.out.println("Input 'CIP' to change inPrice");
         System.out.println("Input 'COP' to change outPrice\n");
         System.out.println("--- Choose information to change:");
+    }
+
+    // --------------------------- save & load data -----------------------
+    //EFFECTS: saves the itemList to file
+    private void saveItemList() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(itemsInStore);
+            jsonWriter.close();
+
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to read from file: " + jsonStoreAddress);
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: load itemList from file
+    private void loadItemList() {
+        try {
+            itemsInStore = jsonReader.read();
+            System.out.println("Loaded items in " + itemsInStore.getName() + "from " + jsonStoreAddress);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + jsonStoreAddress);
+        }
     }
 }

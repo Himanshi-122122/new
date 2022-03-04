@@ -24,9 +24,10 @@ public class JsonReader {
     //throws IOException if an error reading data from file
     //todo: review again
     public ItemList read() throws IOException {
-        String jsonData = readFile(sourceFileName); // call readFile(), return appended string from source file
+        String jsonData = readFile(sourceFileName); // call readFile() to read source file, return appended string from source file
+        // jsonData is appended string gotten from source file
         JSONObject jsonObject = new JSONObject(jsonData); // construct new JSONObject from source JSON text string
-        return parseItemList(jsonObject); // parses
+        return parseItemList(jsonObject); // call parseItemList, parses JSONObject to ItemList
     }
 
     //EFFECTS: reads source file as string and returns it
@@ -40,18 +41,36 @@ public class JsonReader {
         return contentBuilder.toString();
     }
 
+    //MODIFIES: itemList
     //EFFECTS: parses Item List from JSON and returns it
-    private ItemList parseItemList(JSONObject jsonObject) {
-        String name = jsonObject.getString("listName");
+    private ItemList parseItemList(JSONObject jsonObject) { //jsonObject in String type
+        String name = jsonObject.getString("listName"); //get the string associated with a key "listName"
         ItemList itemList = new ItemList(name);
-        addItems(itemList, jsonObject); // add all items to new list
+        addAllItems(itemList, jsonObject); // call addItems, add all items to new list
         return itemList;
     }
 
+    //MODIFIES: itemList
     //EFFECTS: parses Items from JSON object and adds them to Item List
-    private void addItems(ItemList itemList, JSONObject jsonObject) {
+    private void addAllItems(ItemList itemList, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("allItems");
+        for (Object json : jsonArray) {
+            JSONObject nextItem = (JSONObject) json;
+            addItem(itemList, nextItem);
+        }
+    }
 
+    //MODIFIES: itemList
+    //EFFECTS: parses Item from JSONArray Object and adds it to itemList
+    private void addItem(ItemList itemList, JSONObject jsonObject) {
+        int id = jsonObject.getInt("id");
+        String name = jsonObject.getString("name");
+        int count = jsonObject.getInt("count");
+        String position = jsonObject.getString("position");
+        Double inPrice = jsonObject.getDouble("inprice");
+        Double outPrice = jsonObject.getDouble("outprice");
+        Item item = new Item(id, name, count, position, inPrice, outPrice);
+        itemList.addItemToList(item);
     }
 
 }

@@ -38,7 +38,7 @@ public class JsonWriter {
 
     //MODIFIES: this
     //EFFECTS: close writer
-    private void close() {
+    public void close() {
         writer.close();
     }
 }
