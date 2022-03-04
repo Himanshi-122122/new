@@ -71,5 +71,6 @@ public class ItemListTest {
     public void toJsonTest() {
         JSONObject itemListToJsonTest = testList.toJson();
         assertEquals("My Store", itemListToJsonTest.getString("listName"));
+        //todo: how to check itemsToJson
     }
 }

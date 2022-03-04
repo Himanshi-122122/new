@@ -1,5 +1,7 @@
 package persistence;
 
+import com.sun.xml.internal.org.jvnet.fastinfoset.FastInfosetException;
+import model.Item;
 import model.ItemList;
 import org.junit.jupiter.api.Test;
 
@@ -41,5 +43,25 @@ public class JsonReaderTest {
         }
     }
 
+    @Test
+    public void readTest() {
+        try {
+            ItemList listTest = new ItemList("My Store");
+            listTest.addItemToList(new Item(1, "name 1", 1, "A", 1, 1));
+            listTest.addItemToList(new Item(2, "name 2", 2, "B", 2, 2));
+            listTest.addItemToList(new Item(3, "name 3", 3, "C", 3, 3));
+
+            JsonWriter writerTest = new JsonWriter("./data/readTest.json");
+            writerTest.open();
+            writerTest.write(listTest);
+            writerTest.close();
+
+            JsonReader readTest = new JsonReader("./data/readTest.json");
+            ItemList readReturnItemListTest = readTest.read();
+            assertEquals(3, readReturnItemListTest.getSize());
+        } catch (IOException e) {
+            fail();
+        }
+    }
 
 }
