@@ -1,6 +1,5 @@
 package persistence;
 
-import com.sun.xml.internal.org.jvnet.fastinfoset.FastInfosetException;
 import model.Item;
 import model.ItemList;
 import org.junit.jupiter.api.Test;
