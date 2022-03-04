@@ -92,7 +92,7 @@ public class ItemManagementApp {
         System.out.println("Input 'S' to Show all items in the supermarket");
         System.out.println("Input 'B' to Show all items that was lower than a specific count");
         System.out.println("Input 'Q' to Quit");
-        System.out.println("-------------- SAVE & LOAD DATA - --------------------------");
+        System.out.println("-------------- SAVE & LOAD DATA ----------------------------");
         System.out.println("Input 'SAVE' to Save item list");
         System.out.println("Input 'LOAD' to LOAD item list");
 
