@@ -11,7 +11,7 @@ public class ItemList implements Writable {
     private ArrayList<Item> itemUnderCountList;
     private String listName;
 
-    //construct constructor
+    //construct constructor: create a new empty item list with specific name
     public ItemList(String name) {
         this.listName = name;
         itemArrayList = new ArrayList<>();

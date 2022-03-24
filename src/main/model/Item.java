@@ -17,6 +17,7 @@ public class Item implements Writable {
 
 
     //construct the item
+    //input the ID, name, count, position and in price, out price for item
     public Item(int id, String name, int count, String position,double inPrice, double outPrice) {
         this.itemID = id;
         this.itemName = name;
