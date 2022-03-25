@@ -30,6 +30,13 @@ public class ItemList implements Writable {
     }
 
     //MODIFIES: this
+    //EFFECTS: return item list after specific item deleted
+    public ArrayList<Item> listItemDeleted(int order) {
+        itemArrayList.remove(order - 1);
+        return itemArrayList;
+    }
+
+    //MODIFIES: this
     //EFFECTS: add item which is under specific count to the list
     public ArrayList<Item> listItemUnderCount(int count) {
         itemUnderCountList = new ArrayList<>();

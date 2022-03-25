@@ -15,11 +15,10 @@ the item list by different criteria.
 
 ### User stories
 - User can add item with the information: **ID**, **Name**, **Count**, **Position**, **inPrice**, **outPrice**
-- User can _modify_ all information of each item in the list.
 - User can _delete_ a specific item in the list.
 - User can _view_ all items in the list
 - User can _view_ all items that are under user's determined count to prepare for new order.
 
 **Data Persistence**
-- When users select "Q" to quit the application, they have to choose options to save or not save item list.
+- When users select quit the application, they have to choose options to save or not save item list.
 - When users start the application, they can choose the options to load the saved item list from file or start with the new list.
