@@ -15,6 +15,7 @@ the item list by different criteria.
 
 ### User stories
 - User can add item with the information: **ID**, **Name**, **Count**, **Position**, **inPrice**, **outPrice**
+- User can _edit_ all item's data after adding.
 - User can _delete_ a specific item in the list.
 - User can _view_ all items in the list
 - User can _view_ all items that are under user's determined count to prepare for new order.
