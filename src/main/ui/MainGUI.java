@@ -7,7 +7,6 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +25,7 @@ public class MainGUI extends JFrame {
     private Icon addIcon;
     private Icon showIcon;
     private Icon sortIcon;
+    private Icon editIcon;
     private Icon deleteIcon;
     private Icon quitIcon;
 
@@ -39,7 +39,11 @@ public class MainGUI extends JFrame {
     private static final String jsonStoreAddress = "./data/itemList.json";
 
     /**
+     *
+     *
      * GUI Code base ====================================================================
+     *
+     *
      */
     //represents the main panel
     public MainGUI() {
@@ -62,7 +66,7 @@ public class MainGUI extends JFrame {
         container = new JLabel(new ImageIcon(new ImageIcon("./data/icons/background.jpg").getImage()
                 .getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT))); //Source: freepik.com
 
-        container.setPreferredSize(new Dimension(WIDTH,HEIGHT));
+        container.setPreferredSize(new Dimension(WIDTH, HEIGHT));
         container.setLayout(new FlowLayout());
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -86,22 +90,26 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     * creates Menu bar ===============================================================
+     *
+     *
+     * create menu bar ================================================================
+     *
+     *
      */
     //MODIFIERS: this
     //EFFECTS: adds a menu bar with load and save options
     private void addMenuBar() {
         //constructs main menu bar
         JMenuBar mainMenuBar = new JMenuBar();
-        mainMenuBar.setPreferredSize(new Dimension(WIDTH,40));
+        mainMenuBar.setPreferredSize(new Dimension(WIDTH, 40));
         JMenu menu = new JMenu("File");
 
         //constructs Save button
-        JMenuItem saveButtonMenuBar = new JMenuItem("Save",new ImageIcon("./data/icons/saveIcon.png"));
+        JMenuItem saveButtonMenuBar = new JMenuItem("Save", new ImageIcon("./data/icons/saveIcon.png"));
         saveButtonMenuBar.addActionListener(e -> doSave());
 
         //constructs Load button
-        JMenuItem loadButtonMenuBar = new JMenuItem("Load",new ImageIcon("./data/icons/loadIcon.png"));
+        JMenuItem loadButtonMenuBar = new JMenuItem("Load", new ImageIcon("./data/icons/loadIcon.png"));
         loadButtonMenuBar.addActionListener(e -> doLoad());
 
 
@@ -114,7 +122,11 @@ public class MainGUI extends JFrame {
     }
 
     /**
+     *
+     *
      * creates set of buttons ==========================================================
+     *
+     *
      */
     //EFFECTS: creates all buttons for main frame when application is run
     private void buttonsGUI() {
@@ -148,11 +160,11 @@ public class MainGUI extends JFrame {
     //MODIFIES: this
     //EFFECTS: creates Edit, Delete button and their functionality
     private void buttonsImplementItemInfo() {
-//        Icon editIcon = new ImageIcon("./data/icons/editIcon.png");
-//        JButton editButton = new JButton("Edit Item", editIcon);
-//        editButton.setPreferredSize(new Dimension(ICON_WIDTH, ICON_HEIGHT));
-//        editButton.addActionListener(e -> doEdit());
-//        container.add(editButton);
+        editIcon = new ImageIcon("./data/icons/editIcon.png");
+        JButton editButton = new JButton("Edit Item", editIcon);
+        editButton.setPreferredSize(new Dimension(ICON_WIDTH, ICON_HEIGHT));
+        editButton.addActionListener(e -> doEdit());
+        container.add(editButton);
 
 
         deleteIcon = new ImageIcon("./data/icons/deleteIcon.png");
@@ -175,11 +187,51 @@ public class MainGUI extends JFrame {
 
 
     /**
-     * Main functionality for buttons =====================================================
+     *
+     *
+     * Main functionality for buttons ===================================================
+     *
+     *
      */
+
+    //MODIFIES: this
+    //EFFECTS: parses the list of items in string type to text to be displayed by the label
+    private ArrayList<JComponent> getStringItems(ArrayList<String> items) {
+        ArrayList<JComponent> allItems = new ArrayList<>();
+        if (items.isEmpty()) {
+            allItems.add(new JLabel("You currently have no item!"));
+        } else {
+            for (String s : items) {
+                allItems.add(new JLabel(s));
+            }
+        }
+        return allItems;
+    }
+
+    //MODIFIES: this
+    //EFFECTS: parses the list of items to the list of strings following specific construction
+    private ArrayList<String> itemListToString(ArrayList<Item> list) {
+        ArrayList<String> stringList = new ArrayList<>();
+        itemIndex = 1;
+        for (Item i : list) {
+            stringList.add(itemIndex + "# -> " + "ID: " + i.getItemID() + " | " + "Name: " + i.getItemName()
+                    + " | " + "Count: " + i.getItemCount() + " | " + "Position: " + i.getItemPosition() + " | "
+                    + "Price included BC tax: " + i.priceAfterBCTax() + "$");
+            itemIndex++;
+        }
+        return stringList;
+    }
+
+    /**
+     *
+     *
+     * creates functionality for "Add" button =============
+     *
+     *
+     */
+
     //MODIFIES: this
     //EFFECTS: creates functionality for Add button
-
     @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
     private void doAdd() {
         //creates Text field for item's information
@@ -218,6 +270,14 @@ public class MainGUI extends JFrame {
         }
     }
 
+    /**
+     *
+     *
+     * creates functionality for "Show List" button ===================
+     *
+     *
+     */
+
     //MODIFIES: this
     //EFFECTS: creates functionality for the Show button
     private void doShowList() {
@@ -231,33 +291,13 @@ public class MainGUI extends JFrame {
                 "All Of Items", JOptionPane.PLAIN_MESSAGE, showIcon);
     }
 
-    //MODIFIES: this
-    //EFFECTS: parses the list of items in string type to text to be displayed by the label
-    private ArrayList<JComponent> getStringItems(ArrayList<String> items) {
-        ArrayList<JComponent> allItems = new ArrayList<>();
-        if (items.isEmpty()) {
-            allItems.add(new JLabel("You currently have no item!"));
-        } else {
-            for (String s : items) {
-                allItems.add(new JLabel(s));
-            }
-        }
-        return allItems;
-    }
-
-    //MODIFIES: this
-    //EFFECTS: parses the list of items to the list of strings following specific construction
-    private ArrayList<String> itemListToString(ArrayList<Item> list) {
-        ArrayList<String> stringList = new ArrayList<>();
-        itemIndex = 1;
-        for (Item i : list) {
-            stringList.add(itemIndex + "# -> " + "ID: " + i.getItemID() + " | " + "Name: " + i.getItemName()
-                    + " | " + "Count: " + i.getItemCount() + " | " + "Position: " + i.getItemPosition() + " | "
-                    + "Price included BC tax: " + i.priceAfterBCTax() + "$");
-            itemIndex++;
-        }
-        return stringList;
-    }
+    /**
+     *
+     *
+     * creates functionality for "Sort" button ==========================
+     *
+     *
+     */
 
     //MODIFIES: this
     //EFFECTS: creates functionality for the Sort button
@@ -294,6 +334,8 @@ public class MainGUI extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: helper method for Sorting
     private void sorting(int sortPopDialog, int count) {
         if (sortPopDialog == JOptionPane.OK_OPTION) {
             //parses the list of items to the list of strings
@@ -312,7 +354,13 @@ public class MainGUI extends JFrame {
         }
     }
 
-
+    /**
+     *
+     *
+     * creates functionality for "Delete" buttons =============================
+     *
+     *
+     */
     //MODIFIES: this
     //EFFECTS: creates functionality for the Delete button
     private void doDelete() {
@@ -337,7 +385,7 @@ public class MainGUI extends JFrame {
         if (itemList.getList().isEmpty()) {
             JLabel sortNoItemNotification = new JLabel("You currently have no item!");
             JOptionPane.showMessageDialog(this, sortNoItemNotification,
-                    "Delete no item notification", JOptionPane.PLAIN_MESSAGE, sortIcon);
+                    "Delete no item notification", JOptionPane.PLAIN_MESSAGE, deleteIcon);
         } else {
             int deletePopDialog = JOptionPane.showOptionDialog(this, deleteInputs, "Delete Item",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, deleteIcon, null, null);
@@ -347,6 +395,8 @@ public class MainGUI extends JFrame {
         }
     }
 
+    //MODIFIES: this
+    //EFFECTS: helper method for Deleting
     private void deleting(int deletePopDialog, int itemOrder) {
         if (deletePopDialog == JOptionPane.OK_OPTION) {
             if (itemOrder >= 1 && itemOrder <= itemIndex) {
@@ -365,11 +415,127 @@ public class MainGUI extends JFrame {
 
     }
 
+    /**
+     *
+     *
+     * creates functionality for "Edit" buttons =============================
+     *
+     *
+     */
     //MODIFIES: this
     //EFFECTS: creates functionality for the Edit button
     private void doEdit() {
-        //null
+        //parses the list of items to the list of strings
+        ArrayList<String> itemListComponent = itemListToString(itemList.getList());
+
+        JPanel listLabels = new JPanel();
+
+        //creates list of labels from list of strings
+        for (String str : itemListComponent) {
+            JLabel j1 = new JLabel(str);
+            listLabels.setLayout(new GridLayout(0, 1));
+            listLabels.add(j1);
+        }
+
+        JTextField editItemOrder = new JTextField();
+        JLabel message = new JLabel("All items");
+
+        JComponent[] editInputs = new JComponent[]{message, listLabels,
+                new JLabel("Please input the item order you want to edit"), editItemOrder
+        };
+        if (itemList.getList().isEmpty()) {
+            JLabel sortNoItemNotification = new JLabel("You currently have no item!");
+            JOptionPane.showMessageDialog(this, sortNoItemNotification,
+                    "Edit no item notification", JOptionPane.PLAIN_MESSAGE, editIcon);
+        } else {
+            int editPopDialog = JOptionPane.showOptionDialog(this, editInputs, "Edit Item",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, editIcon, null, null);
+            int getEditOrderInput = Integer.parseInt(editItemOrder.getText());
+
+            editing(editPopDialog, getEditOrderInput);
+        }
     }
+
+    //MODIFIES: this
+    //EFFECTS: helper method for Editing
+    @SuppressWarnings({"checkstyle:MethodLength", "checkstyle:SuppressWarnings"})
+    private void editing(int editPopDialog, int itemOrder) {
+        if (editPopDialog == JOptionPane.OK_OPTION) {
+            if (itemOrder >= 1 && itemOrder <= itemIndex) {
+                Item getItemWithOrder = itemList.getItemFromList(itemOrder - 1);
+
+                //creates current Text field for item's information
+                JTextField id = new JTextField();
+                id.setText(Integer.toString(getItemWithOrder.getItemID()));
+                JTextField name = new JTextField();
+                name.setText(getItemWithOrder.getItemName());
+                JTextField count = new JTextField();
+                count.setText(Integer.toString(getItemWithOrder.getItemCount()));
+                JTextField position = new JTextField();
+                position.setText(getItemWithOrder.getItemPosition());
+                JTextField inPrice = new JTextField();
+                inPrice.setText(Double.toString(getItemWithOrder.getItemInPrice()));
+                JTextField outPrice = new JTextField();
+                outPrice.setText(Double.toString(getItemWithOrder.getItemOutPrice()));
+
+
+                //adds all fields which need to show on the popup dialog when clicking the Edit button
+                JComponent[] addInputs = new JComponent[]{
+                        new JLabel(("Input the new information to the item's you want to edit")),
+                        new JLabel("ID (input number | eg: 123"), id,
+                        new JLabel("Name (input character | eg. apple"), name,
+                        new JLabel("Count (input number | eg: 123)"), count,
+                        new JLabel("Position (input character | eg. A123)"), position,
+                        new JLabel("In-price (input number | eg: 123)"), inPrice,
+                        new JLabel("Out-price (input number | eg: 123)"), outPrice
+                };
+
+                int specificItemEditingPopDialog = JOptionPane.showOptionDialog(this, addInputs,
+                        "Add Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        editIcon, null, null);
+
+                //gets the new item's data after editing
+                if (specificItemEditingPopDialog == JOptionPane.OK_OPTION) {
+                    //gets inputs from the text fields
+                    int getIDInput = Integer.parseInt(id.getText());
+                    String getNameInput = name.getText();
+                    int getCountInput = Integer.parseInt(count.getText());
+                    String getPositionInput = position.getText();
+                    double getInPriceInput = Double.parseDouble(inPrice.getText());
+                    double getOutPriceInput = Double.parseDouble(outPrice.getText());
+
+                    replaceNewInput(itemOrder, getIDInput, getNameInput, getCountInput,getPositionInput,
+                            getInPriceInput,getOutPriceInput);
+
+                    doShowList();
+                }
+            } else {
+                JLabel messageNoOrder = new JLabel("No item has that order!");
+                JOptionPane.showMessageDialog(this, messageNoOrder,
+                        "Input invalid item order notification", JOptionPane.PLAIN_MESSAGE, editIcon);
+            }
+        }
+    }
+
+    //MODIFIES: this
+    //EFFECTS: replace new data for item
+    private void replaceNewInput(int itemOrder, int id, String name, int count, String pos, Double ip, Double op) {
+        Item getItemFromList = itemList.getItemFromList(itemOrder - 1);
+        getItemFromList.changeItemID(id);
+        getItemFromList.changeItemName(name);
+        getItemFromList.changeItemCount(count);
+        getItemFromList.changeItemPosition(pos);
+        getItemFromList.changeItemInPrice(ip);
+        getItemFromList.changeItemOutPrice(op);
+    }
+
+    /**
+     *
+     *
+     * creates functionality for "Exit" buttons =============================
+     *
+     *
+     */
 
     //MODIFIES: this
     //EFFECTS: creates functionality for the Exit button
@@ -387,6 +553,14 @@ public class MainGUI extends JFrame {
             this.dispose();
         }
     }
+
+    /**
+     *
+     *
+     * creates functionality for "Save" & "Load" buttons =============================
+     *
+     *
+     */
 
     //MODIFIES: this
     //EFFECTS: creates functionality for the Load button
@@ -426,6 +600,10 @@ public class MainGUI extends JFrame {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to read from file: " + jsonStoreAddress);
         }
+    }
+
+    public ItemList getMainUIItemList() {
+        return itemList;
     }
 
 }
