@@ -1,13 +1,11 @@
 package model;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ItemListTest {
     private Item item01;
@@ -64,7 +62,7 @@ public class ItemListTest {
 
     @Test
     public void getNameListTest() {
-        assertEquals("My Store", testList.getName());
+        assertEquals("My Store", testList.getNameOfList());
     }
 
     @Test

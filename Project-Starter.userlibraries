@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<eclipse-userlibraries>
+  <library name="json-20210307">
+    <archive path="/Volumes/GoogleDrive/My Drive/** UBC/** Term02/CPSC210/Project/lib/json-20210307.jar" />
+  </library>
+  <library name="junit">
+    <archive path="/Users/gsthanhnguyen/.m2/repository/junit/junit/4.12/junit-4.12.jar" />
+    <archive path="/Users/gsthanhnguyen/.m2/repository/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar" />
+  </library>
+</eclipse-userlibraries>
+

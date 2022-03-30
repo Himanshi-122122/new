@@ -37,7 +37,7 @@ public class JsonWriterTest extends JsonTest {
 
             JsonReader readTest = new JsonReader("./data/emptyWriterListTest.json");
             listTest = readTest.read();
-            assertEquals("My Store", listTest.getName());
+            assertEquals("My Store", listTest.getNameOfList());
             assertEquals(0, listTest.getSize());
         } catch (IOException e) {
             fail();
@@ -60,7 +60,7 @@ public class JsonWriterTest extends JsonTest {
 
             JsonReader readTest = new JsonReader("./data/generalWriterListTest.json");
             listTest = readTest.read();
-            assertEquals("My Store", listTest.getName());
+            assertEquals("My Store", listTest.getNameOfList());
             jsonTest(1, "name 1", 1, "A", listTest.getItemFromList(0));
             jsonTest(2, "name 2", 2, "B", listTest.getItemFromList(1));
 

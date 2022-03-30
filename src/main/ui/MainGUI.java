@@ -1,5 +1,7 @@
 package ui;
 
+import model.Event;
+import model.EventLog;
 import model.Item;
 import model.ItemList;
 import persistence.JsonReader;
@@ -7,9 +9,11 @@ import persistence.JsonWriter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class MainGUI extends JFrame {
     //Static fields
@@ -31,6 +35,7 @@ public class MainGUI extends JFrame {
 
     //Item & ItemList
     private ItemList itemList;
+    private Item item;
     private int itemIndex;
 
     //Save & Load
@@ -39,11 +44,7 @@ public class MainGUI extends JFrame {
     private static final String jsonStoreAddress = "./data/itemList.json";
 
     /**
-     *
-     *
      * GUI Code base ====================================================================
-     *
-     *
      */
     //represents the main panel
     public MainGUI() {
@@ -66,14 +67,14 @@ public class MainGUI extends JFrame {
         container = new JLabel(new ImageIcon(new ImageIcon("./data/icons/background.jpg").getImage()
                 .getScaledInstance(WIDTH, HEIGHT, Image.SCALE_DEFAULT))); //Source: freepik.com
 
-        container.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        container.setLayout(new FlowLayout());
+//        container.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        container.setLayout(new FlowLayout()); //set style of layout for buttons
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // stop application when closing window
 
         //adds menu bar and buttons to frame
         addMenuBar();
-        add(container);
+        add(container); //add container containing buttons, background into frame
         buttonsGUI();
 
         //sets visible for Frame
@@ -87,14 +88,29 @@ public class MainGUI extends JFrame {
         //creates file location for save and load
         jsonReader = new JsonReader(jsonStoreAddress);
         jsonWriter = new JsonWriter(jsonStoreAddress);
+
     }
 
     /**
-     *
-     *
+     * printlog ====================================================================
+     */
+
+    private class PrintLogAction extends AbstractAction {
+        PrintLogAction() {
+            super("Print log to...");
+            for (Iterator<Event> e = EventLog.getInstance().iterator(); e.hasNext(); ) {
+                Event ev = e.next();
+                System.out.println(ev);
+            }
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        }
+    }
+
+    /**
      * create menu bar ================================================================
-     *
-     *
      */
     //MODIFIERS: this
     //EFFECTS: adds a menu bar with load and save options
@@ -122,11 +138,7 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     *
-     *
      * creates set of buttons ==========================================================
-     *
-     *
      */
     //EFFECTS: creates all buttons for main frame when application is run
     private void buttonsGUI() {
@@ -187,16 +199,12 @@ public class MainGUI extends JFrame {
 
 
     /**
-     *
-     *
      * Main functionality for buttons ===================================================
-     *
-     *
      */
 
     //MODIFIES: this
     //EFFECTS: parses the list of items in string type to text to be displayed by the label
-    private ArrayList<JComponent> getStringItems(ArrayList<String> items) {
+    private ArrayList<JComponent> parseStringListToLabelList(ArrayList<String> items) {
         ArrayList<JComponent> allItems = new ArrayList<>();
         if (items.isEmpty()) {
             allItems.add(new JLabel("You currently have no item!"));
@@ -210,24 +218,20 @@ public class MainGUI extends JFrame {
 
     //MODIFIES: this
     //EFFECTS: parses the list of items to the list of strings following specific construction
-    private ArrayList<String> itemListToString(ArrayList<Item> list) {
+    private ArrayList<String> parseConstructedStringList(ArrayList<Item> list) {
         ArrayList<String> stringList = new ArrayList<>();
-        itemIndex = 1;
+        itemIndex = 0;
         for (Item i : list) {
+            itemIndex++;
             stringList.add(itemIndex + "# -> " + "ID: " + i.getItemID() + " | " + "Name: " + i.getItemName()
                     + " | " + "Count: " + i.getItemCount() + " | " + "Position: " + i.getItemPosition() + " | "
                     + "Price included BC tax: " + i.priceAfterBCTax() + "$");
-            itemIndex++;
         }
         return stringList;
     }
 
     /**
-     *
-     *
      * creates functionality for "Add" button =============
-     *
-     *
      */
 
     //MODIFIES: this
@@ -256,7 +260,7 @@ public class MainGUI extends JFrame {
         int addPopDialog = JOptionPane.showOptionDialog(this, addInputs, "Add Item",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, addIcon, null, null);
         if (addPopDialog == JOptionPane.OK_OPTION) {
-            //gets inputs from the text fields
+            //get inputs from the text fields
             int getIDInput = Integer.parseInt(id.getText());
             String getNameInput = name.getText();
             int getCountInput = Integer.parseInt(count.getText());
@@ -271,20 +275,16 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     *
-     *
      * creates functionality for "Show List" button ===================
-     *
-     *
      */
 
     //MODIFIES: this
     //EFFECTS: creates functionality for the Show button
     private void doShowList() {
-        //parses the list of items to the list of text displayed by th label
-        ArrayList<JComponent> itemListComponent = getStringItems(itemListToString(itemList.getList()));
+        //parses the list of items in string type to the list of JLabel
+        ArrayList<JComponent> itemListComponent =
+                parseStringListToLabelList(parseConstructedStringList(itemList.getList()));
         JComponent[] itemStringsToComponents = itemListComponent.toArray(new JComponent[0]);
-        //todo: still not understand
 
         //creates the popup dialog for the Show button
         JOptionPane.showMessageDialog(this, itemStringsToComponents,
@@ -292,18 +292,14 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     *
-     *
      * creates functionality for "Sort" button ==========================
-     *
-     *
      */
 
     //MODIFIES: this
     //EFFECTS: creates functionality for the Sort button
     private void doSortUnderCount() {
         //parses the list of items to the list of strings
-        ArrayList<String> itemListString = itemListToString(this.itemList.getList());
+        ArrayList<String> itemListString = parseConstructedStringList(this.itemList.getList());
 
         JPanel listLabels = new JPanel();
         //creates list of labels from list of strings
@@ -338,14 +334,14 @@ public class MainGUI extends JFrame {
     //EFFECTS: helper method for Sorting
     private void sorting(int sortPopDialog, int count) {
         if (sortPopDialog == JOptionPane.OK_OPTION) {
-            //parses the list of items to the list of strings
-            ArrayList<String> listItemString = itemListToString(itemList.listItemUnderCount(count));
+            //parses the list of SORTED items to the list of strings
+            ArrayList<String> listItemString = parseConstructedStringList(itemList.listItemUnderCount(count));
             if (listItemString.isEmpty()) {
                 JLabel messageEmptyList = new JLabel("No item under expected count!");
                 JOptionPane.showMessageDialog(this, messageEmptyList,
                         "No items notification", JOptionPane.PLAIN_MESSAGE, sortIcon);
             } else {
-                ArrayList<JComponent> itemListComponentUnderCount = getStringItems(listItemString);
+                ArrayList<JComponent> itemListComponentUnderCount = parseStringListToLabelList(listItemString);
                 JComponent[] itemStringsToComponents = itemListComponentUnderCount.toArray(new JComponent[0]);
 
                 JOptionPane.showMessageDialog(this, itemStringsToComponents,
@@ -355,17 +351,13 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     *
-     *
      * creates functionality for "Delete" buttons =============================
-     *
-     *
      */
     //MODIFIES: this
     //EFFECTS: creates functionality for the Delete button
     private void doDelete() {
         //parses the list of items to the list of strings
-        ArrayList<String> itemListComponent = itemListToString(itemList.getList());
+        ArrayList<String> itemListComponent = parseConstructedStringList(itemList.getList());
 
         JPanel listLabels = new JPanel();
 
@@ -400,8 +392,9 @@ public class MainGUI extends JFrame {
     private void deleting(int deletePopDialog, int itemOrder) {
         if (deletePopDialog == JOptionPane.OK_OPTION) {
             if (itemOrder >= 1 && itemOrder <= itemIndex) {
-                ArrayList<String> listItemString = itemListToString(itemList.listItemDeleted(itemOrder));
-                ArrayList<JComponent> itemListComponentUnderCount = getStringItems(listItemString);
+                ArrayList<String> listItemString =
+                        parseConstructedStringList(itemList.listItemDeletedItem(itemOrder - 1));
+                ArrayList<JComponent> itemListComponentUnderCount = parseStringListToLabelList(listItemString);
                 JComponent[] itemStringsToComponents = itemListComponentUnderCount.toArray(new JComponent[0]);
 
                 JOptionPane.showMessageDialog(this, itemStringsToComponents,
@@ -416,17 +409,13 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     *
-     *
      * creates functionality for "Edit" buttons =============================
-     *
-     *
      */
     //MODIFIES: this
     //EFFECTS: creates functionality for the Edit button
     private void doEdit() {
         //parses the list of items to the list of strings
-        ArrayList<String> itemListComponent = itemListToString(itemList.getList());
+        ArrayList<String> itemListComponent = parseConstructedStringList(itemList.getList());
 
         JPanel listLabels = new JPanel();
 
@@ -464,7 +453,7 @@ public class MainGUI extends JFrame {
             if (itemOrder >= 1 && itemOrder <= itemIndex) {
                 Item getItemWithOrder = itemList.getItemFromList(itemOrder - 1);
 
-                //creates current Text field for item's information
+                //creates current Text field for item's
                 JTextField id = new JTextField();
                 id.setText(Integer.toString(getItemWithOrder.getItemID()));
                 JTextField name = new JTextField();
@@ -491,7 +480,7 @@ public class MainGUI extends JFrame {
                 };
 
                 int specificItemEditingPopDialog = JOptionPane.showOptionDialog(this, addInputs,
-                        "Add Item", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        "Add Item", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
                         editIcon, null, null);
 
                 //gets the new item's data after editing
@@ -504,15 +493,21 @@ public class MainGUI extends JFrame {
                     double getInPriceInput = Double.parseDouble(inPrice.getText());
                     double getOutPriceInput = Double.parseDouble(outPrice.getText());
 
-                    replaceNewInput(itemOrder, getIDInput, getNameInput, getCountInput,getPositionInput,
-                            getInPriceInput,getOutPriceInput);
+                    EventLog.getInstance().logEvent(
+                            new Event("Edited item has order: " + itemOrder));
+
+                    replaceNewInput(itemOrder, getIDInput, getNameInput, getCountInput, getPositionInput,
+                            getInPriceInput, getOutPriceInput);
+
 
                     doShowList();
+//                } else if (specificItemEditingPopDialog == JOptionPane.CANCEL_OPTION) {
+//                    JOptionPane.getRootFrame();
+                } else {
+                    JLabel messageNoOrder = new JLabel("No item has that order!");
+                    JOptionPane.showMessageDialog(this, messageNoOrder,
+                            "Input invalid item order notification", JOptionPane.PLAIN_MESSAGE, editIcon);
                 }
-            } else {
-                JLabel messageNoOrder = new JLabel("No item has that order!");
-                JOptionPane.showMessageDialog(this, messageNoOrder,
-                        "Input invalid item order notification", JOptionPane.PLAIN_MESSAGE, editIcon);
             }
         }
     }
@@ -530,11 +525,7 @@ public class MainGUI extends JFrame {
     }
 
     /**
-     *
-     *
      * creates functionality for "Exit" buttons =============================
-     *
-     *
      */
 
     //MODIFIES: this
@@ -548,18 +539,16 @@ public class MainGUI extends JFrame {
 
         if (quitPopDialog == 0) {
             doSave();
+            new PrintLogAction();
             this.dispose();
         } else if (quitPopDialog == 1) {
+            new PrintLogAction();
             this.dispose();
         }
     }
 
     /**
-     *
-     *
      * creates functionality for "Save" & "Load" buttons =============================
-     *
-     *
      */
 
     //MODIFIES: this
@@ -567,7 +556,7 @@ public class MainGUI extends JFrame {
     private void doLoad() {
         try {
             itemList = jsonReader.read();
-            System.out.println("Loaded items in " + itemList.getName() + "from " + jsonStoreAddress);
+            System.out.println("Loaded items in " + itemList.getNameOfList() + "from " + jsonStoreAddress);
 
 
             Icon loadIcon = new ImageIcon("./data/icons/loadIcon.png");
@@ -600,10 +589,6 @@ public class MainGUI extends JFrame {
         } catch (FileNotFoundException e) {
             System.out.println("Unable to read from file: " + jsonStoreAddress);
         }
-    }
-
-    public ItemList getMainUIItemList() {
-        return itemList;
     }
 
 }

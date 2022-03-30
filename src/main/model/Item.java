@@ -38,6 +38,8 @@ public class Item implements Writable {
     //MODIFIES: this
     //EFFECTS: change item's ID
     public int changeItemID(int newID) {
+//        EventLog.getInstance().logEvent(new Event("Change Item's ID from: " + this.itemID
+//                + " to" + newID));
         this.itemID = newID;
         return itemID;
     }
@@ -45,6 +47,8 @@ public class Item implements Writable {
     //MODIFIES: this
     //EFFECTS: change item's name
     public String changeItemName(String newName) {
+//        EventLog.getInstance().logEvent(new Event("Change Item's ID from: " + this.itemName
+//                + " to" + newName));
         this.itemName = newName;
         return itemName;
     }
@@ -52,6 +56,8 @@ public class Item implements Writable {
     //MODIFIES: this
     //EFFECTS: change item's count
     public int changeItemCount(int newCount) {
+//        EventLog.getInstance().logEvent(new Event("Change Item's ID from: " + this.itemCount
+//                + " to" + newCount));
         this.itemCount = newCount;
         return itemCount;
     }
@@ -59,6 +65,8 @@ public class Item implements Writable {
     //MODIFIES: this
     //EFFECTS: change item's position
     public String changeItemPosition(String newPosition) {
+//        EventLog.getInstance().logEvent(new Event("Change Item's ID from: " + this.itemPosition
+//                + " to" + newPosition));
         this.itemPosition = newPosition;
         return itemPosition;
     }
@@ -66,6 +74,8 @@ public class Item implements Writable {
     //MODIFIES: this
     //EFFECTS: change item's in price
     public double changeItemInPrice(double newPrice) {
+//        EventLog.getInstance().logEvent(new Event("Change Item's ID from: " + this.itemInPrice
+//                + " to" + newPrice));
         this.itemInPrice = newPrice;
         return itemInPrice;
     }
@@ -73,9 +83,14 @@ public class Item implements Writable {
     //MODIFIES: this
     //EFFECTS: change item's out price
     public double changeItemOutPrice(double newPrice) {
+//        EventLog.getInstance().logEvent(new Event("Change Item's ID from: " + this.itemOutPrice
+//                + " to" + newPrice));
         this.itemOutPrice = newPrice;
         return itemOutPrice;
     }
+
+
+
 
     //getters & setters ----------------------------------------------------
 

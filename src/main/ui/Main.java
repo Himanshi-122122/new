@@ -288,7 +288,7 @@ public class Main {
     private void loadItemList() {
         try {
             itemsInStore = jsonReader.read();
-            System.out.println("Loaded items in " + itemsInStore.getName() + "from " + jsonStoreAddress);
+            System.out.println("Loaded items in " + itemsInStore.getNameOfList() + "from " + jsonStoreAddress);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + jsonStoreAddress);
         }

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class ItemList implements Writable {
     private ArrayList<Item> itemArrayList;
     private ArrayList<Item> itemUnderCountList;
+    private Item item;
     private String listName;
 
     //construct constructor: create a new empty item list with specific name
@@ -20,25 +21,33 @@ public class ItemList implements Writable {
     //MODIFIES: this
     //EFFECTS: add item into the list
     public void addItemToList(Item item) {
+        EventLog.getInstance().logEvent(
+                new Event("Added item has name: " + item.getItemName()));
         itemArrayList.add(item);
     }
 
     //MODIFIES: this
     //EFFECTS: delete item with specific index from the list
     public void deleteItemInList(int index) {
+//        EventLog.getInstance().logEvent(
+//                new Event("Deleted item with name: " + getItemNameAtIndex(index) + " from " + this.listName));
         itemArrayList.remove(index);
     }
 
     //MODIFIES: this
     //EFFECTS: return item list after specific item deleted
-    public ArrayList<Item> listItemDeleted(int order) {
-        itemArrayList.remove(order - 1);
+    public ArrayList<Item> listItemDeletedItem(int order) {
+        EventLog.getInstance().logEvent(
+                new Event("Deleted item has name: " + getItemNameAtIndex(order)));
+        itemArrayList.remove(order);
         return itemArrayList;
     }
 
     //MODIFIES: this
     //EFFECTS: add item which is under specific count to the list
     public ArrayList<Item> listItemUnderCount(int count) {
+        EventLog.getInstance().logEvent(
+                new Event("Filtered all items which are under: " + count + " count."));
         itemUnderCountList = new ArrayList<>();
         for (Item item : itemArrayList) {
             if (item.getItemCount() <= count) {
@@ -64,8 +73,13 @@ public class ItemList implements Writable {
     }
 
     //EFFECTS: get name
-    public String getName() {
+    public String getNameOfList() {
         return listName;
+    }
+
+    //EFFECTS: get item name at specific index
+    public String getItemNameAtIndex(int index) {
+        return itemArrayList.get(index).getItemName();
     }
 
 
