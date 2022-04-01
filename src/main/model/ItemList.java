@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class ItemList implements Writable {
     private ArrayList<Item> itemArrayList;
     private ArrayList<Item> itemUnderCountList;
-    private Item item;
+//    private Item item;
     private String listName;
 
     //construct constructor: create a new empty item list with specific name

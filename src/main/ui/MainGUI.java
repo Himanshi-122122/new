@@ -35,7 +35,7 @@ public class MainGUI extends JFrame {
 
     //Item & ItemList
     private ItemList itemList;
-    private Item item;
+//    private Item item;
     private int itemIndex;
 
     //Save & Load
