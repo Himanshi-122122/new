@@ -35,8 +35,9 @@ public class MainGUI extends JFrame {
 
     //Item & ItemList
     private ItemList itemList;
-//    private Item item;
+    //    private Item item;
     private int itemIndex;
+    private int getEditOrderInput;
 
     //Save & Load
     private JsonReader jsonReader;
@@ -439,7 +440,9 @@ public class MainGUI extends JFrame {
         } else {
             int editPopDialog = JOptionPane.showOptionDialog(this, editInputs, "Edit Item",
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, editIcon, null, null);
-            int getEditOrderInput = Integer.parseInt(editItemOrder.getText());
+//            int getEditOrderInput = Integer.parseInt(editItemOrder.getText());
+            getEditOrderInput = Integer.parseInt(editItemOrder.getText());
+
 
             editing(editPopDialog, getEditOrderInput);
         }
@@ -493,16 +496,12 @@ public class MainGUI extends JFrame {
                     double getInPriceInput = Double.parseDouble(inPrice.getText());
                     double getOutPriceInput = Double.parseDouble(outPrice.getText());
 
-                    EventLog.getInstance().logEvent(
-                            new Event("Edited item has order: " + itemOrder));
 
-                    replaceNewInput(itemOrder, getIDInput, getNameInput, getCountInput, getPositionInput,
+                    itemList.replaceNewInput(itemOrder, getIDInput, getNameInput, getCountInput, getPositionInput,
                             getInPriceInput, getOutPriceInput);
 
-
                     doShowList();
-//                } else if (specificItemEditingPopDialog == JOptionPane.CANCEL_OPTION) {
-//                    JOptionPane.getRootFrame();
+
                 } else {
                     JLabel messageNoOrder = new JLabel("No item has that order!");
                     JOptionPane.showMessageDialog(this, messageNoOrder,
@@ -512,17 +511,6 @@ public class MainGUI extends JFrame {
         }
     }
 
-    //MODIFIES: this
-    //EFFECTS: replace new data for item
-    private void replaceNewInput(int itemOrder, int id, String name, int count, String pos, Double ip, Double op) {
-        Item getItemFromList = itemList.getItemFromList(itemOrder - 1);
-        getItemFromList.changeItemID(id);
-        getItemFromList.changeItemName(name);
-        getItemFromList.changeItemCount(count);
-        getItemFromList.changeItemPosition(pos);
-        getItemFromList.changeItemInPrice(ip);
-        getItemFromList.changeItemOutPrice(op);
-    }
 
     /**
      * creates functionality for "Exit" buttons =============================
@@ -591,4 +579,7 @@ public class MainGUI extends JFrame {
         }
     }
 
+
 }
+
+

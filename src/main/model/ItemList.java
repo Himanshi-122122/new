@@ -3,12 +3,14 @@ package model;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
+import ui.MainGUI;
 
 import java.util.ArrayList;
 
 public class ItemList implements Writable {
     private ArrayList<Item> itemArrayList;
     private ArrayList<Item> itemUnderCountList;
+    private static MainGUI mainGUI;
 //    private Item item;
     private String listName;
 
@@ -57,6 +59,20 @@ public class ItemList implements Writable {
         return itemUnderCountList;
     }
 
+    //MODIFIES: this
+    //EFFECTS: replace new data for item
+    public void replaceNewInput(int itemOrder, int id, String name, int count, String pos, Double ip, Double op) {
+        EventLog.getInstance().logEvent(
+                new Event("Edited item has order: " + itemOrder));
+        Item getItemFromList = getItemFromList(itemOrder - 1);
+        getItemFromList.changeItemID(id);
+        getItemFromList.changeItemName(name);
+        getItemFromList.changeItemCount(count);
+        getItemFromList.changeItemPosition(pos);
+        getItemFromList.changeItemInPrice(ip);
+        getItemFromList.changeItemOutPrice(op);
+    }
+
     //EFFECTS: getter
     public ArrayList<Item> getList() {
         return itemArrayList;
@@ -81,6 +97,7 @@ public class ItemList implements Writable {
     public String getItemNameAtIndex(int index) {
         return itemArrayList.get(index).getItemName();
     }
+
 
 
     //EFFECTS: construct ItemList JSON
