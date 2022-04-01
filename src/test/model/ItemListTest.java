@@ -66,6 +66,24 @@ public class ItemListTest {
     }
 
     @Test
+    public void getItemNameAtIndexTest() {
+        assertEquals("item01 name",testList.getItemNameAtIndex(0));
+    }
+
+    @Test
+    public void listItemDeletedItemTest() {
+        assertEquals(2, testList.listItemDeletedItem(0).size());
+        assertFalse(testList.listItemDeletedItem(0).contains(item01));
+    }
+
+    @Test
+    public void replaceNewInputTest() {
+        testList.replaceNewInput(1,2, "item02 name", 200,
+                "B", 200.0, 220.0);
+        assertEquals("item02 name",testList.getItemFromList(0).getItemName());
+    }
+
+    @Test
     public void toJsonTest() {
         JSONObject itemListToJsonTest = testList.toJson();
         assertEquals("My Store", itemListToJsonTest.getString("listName"));
