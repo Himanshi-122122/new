@@ -27,27 +27,44 @@ the item list by different criteria.
 
 **Phase 4: Task 2**
 Sample log:
+
 Loaded items in My Storefrom ./data/itemList.json
+
 Thu Mar 31 19:12:15 PDT 2022
+
 Added item has name: name test 1
+
 Thu Mar 31 19:12:15 PDT 2022
+
 Added item has name: name test 2
+
 Thu Mar 31 19:12:15 PDT 2022
+
 Added item has name: name test 3
+
 Thu Mar 31 19:12:15 PDT 2022
+
 Added item has name: name test 4
+
 Thu Mar 31 19:12:23 PDT 2022
+
 Filtered all items which are under: 3 count.
+
 Thu Mar 31 19:12:35 PDT 2022
+
 Edited item has order: 1
+
 Thu Mar 31 19:12:50 PDT 2022
+
 Added item has name: Test name
+
 Thu Mar 31 19:12:55 PDT 2022
+
 Deleted item has name: name test 4
 
 
 **Phase 4: Task 3**
 - To improve cohesion, MainGUI could be split up into separate class to implement 
-separate functionality, classes including: 
+separate functionality, total 6 classes including: 
 1. Construct buttons in the main interface
 2. Does separate functionality for each button: adding, showing list, sorting, editing, deleting
