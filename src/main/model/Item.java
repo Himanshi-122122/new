@@ -132,5 +132,4 @@ public class Item implements Writable {
         json.put("outprice", itemOutPrice);
         return json;
     }
-
 }

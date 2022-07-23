@@ -64,3 +64,4 @@ public class Event {
         return dateLogged.toString() + "\n" + description;
     }
 }
+

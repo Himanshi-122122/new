@@ -73,5 +73,4 @@ public class JsonReader {
         Item item = new Item(id, name, count, position, inPrice, outPrice);
         itemList.addItemToList(item);
     }
-
 }

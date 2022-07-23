@@ -71,3 +71,4 @@ public class ItemTest {
         assertEquals(110.0,testItem1.getDouble("outprice"));
      }
 }
+

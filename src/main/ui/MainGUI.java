@@ -578,8 +578,6 @@ public class MainGUI extends JFrame {
             System.out.println("Unable to read from file: " + jsonStoreAddress);
         }
     }
-
-
 }
 
 

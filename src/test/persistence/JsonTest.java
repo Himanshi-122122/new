@@ -12,3 +12,4 @@ public class JsonTest {
         assertEquals(position, item.getItemPosition());
     }
 }
+
